@@ -1,5 +1,5 @@
 import bookmodel from "../models/bookmodel.js";
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
 export default class BookController {
   async addBook(req, res, imageName) {
     const data = await bookmodel.create({ ...req.body, image: imageName });
@@ -18,6 +18,19 @@ export default class BookController {
       res.json({ sucess: false, message: "error" });
     }
   }
+  async getBooks(req, res) {
+    const limit = req.query.limit || 10; // Set a default limit of 10
+    try {
+      const data = await bookmodel.findAll({
+        limit,
+      });
+      res.json(data);
+    } catch (error) {
+      console.error(error);
+      res.json({ success: false, message: "Error fetching books" });
+    }
+  }
+
   async updateBook(req, res, id) {
     if (id) {
       req.body;

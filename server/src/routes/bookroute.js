@@ -33,6 +33,10 @@ router.get("/search/:id", (req, res) => {
   const { id } = req.params;
   bookController.getBookById(req, res, id);
 });
+router.get("/", (req, res) => {
+  let limit = req.query;
+  bookController.getBooks(req, res);
+});
 router.put("/update/:id", (req, res) => {
   const { id } = req.params;
   bookController.updateBook(req, res, id);
