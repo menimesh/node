@@ -64,6 +64,7 @@ export default class BookController {
   }
   async searchBook(req, res) {
     const { q } = req.query;
+
     if (q) {
       const data = await bookmodel.findAll({
         where: {
