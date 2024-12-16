@@ -48,4 +48,8 @@ router.delete("/delete/:id", (req, res) => {
 router.get("/find/all", (req, res) => {
   bookController.searchBook(req, res);
 });
+
+router.post("/login", (req, res) => {
+  bookController.LoginBook(req, res);
+});
 export default router;

@@ -4,11 +4,13 @@ import Home from "./components/home.jsx";
 import AddBook from "./components/addBook.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import SearchBook from "./components/searchBook.jsx";
+import Login from "./components/login.jsx";
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />}>
           {/* Use relative path here */}
           <Route path="searchBook" element={<SearchBook />} />

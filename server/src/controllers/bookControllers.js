@@ -1,4 +1,5 @@
 import bookmodel from "../models/bookmodel.js";
+import userModel from "../models/usermodel.js";
 import { Op, where } from "sequelize";
 export default class BookController {
   async addBook(req, res, imageName) {
@@ -81,5 +82,20 @@ export default class BookController {
       res.json(data);
       console.log("data finded sucessfully");
     } else res.json({ sucess: false, message: "search string not provided" });
+  }
+  async LoginBook(req, res) {
+    const { email, password } = req.body;
+    const respo = await userModel.findOne({
+      where: { Email: email, Password: password },
+    });
+    if (!respo) {
+      return res
+        .status(404)
+        .json({ message: "UserName and password is not valid" });
+    }
+
+    res.status(200).json({
+      message: "Login sucessfully",
+    });
   }
 }

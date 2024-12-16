@@ -6,8 +6,22 @@ const SearchBook = () => {
   const [data, setData] = useState("");
   const [search, sData] = useState([]);
 
+  const deleteBook = async (e) => {
+    console.log(e);
+    const id = e;
+    const res = await api.delete(`/book/delete/${id}`);
+    if (res) {
+      findData();
+      alert("delete sucessfully");
+    }
+
+    console.log(res);
+  };
+
   const searchData = (e) => {
-    setData(e.target.value); // Update the state with input value
+    setData(e.target.value);
+
+    // Update the state with input value
   };
 
   const findData = async () => {
@@ -71,6 +85,10 @@ const SearchBook = () => {
     borderBottom: "1px solid #ccc",
     fontSize: "16px",
   };
+  const buttonStyle = {
+    padding: "8px",
+    margin: "10px",
+  };
 
   return (
     <div style={containerStyle}>
@@ -84,11 +102,18 @@ const SearchBook = () => {
       />
       <i className="ri-search-line" style={iconStyle} onClick={findData}></i>
       <ul style={listStyle}>
-        {search.map((book, index) => (
-          <li key={index} style={listItemStyle}>
-            {book.name}
-          </li>
-        ))}
+        {search.length === 0 ? (
+          <li>No books are available</li>
+        ) : (
+          search.map((book, index) => (
+            <li key={index} style={listItemStyle}>
+              {book.name}
+              <button style={buttonStyle} onClick={() => deleteBook(book.id)}>
+                Delete
+              </button>
+            </li>
+          ))
+        )}
       </ul>
     </div>
   );
